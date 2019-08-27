@@ -14,9 +14,10 @@ int main()
 		cout<<"Guess the number(1 to 10): ";
 		cin >>num;
 		checkNum(num,rd);
+		cout<<endl;
 		r++;
 	}while(num != rd);
-	cout<<"\nThe secret number is "<<rd
+	cout<<"The secret number is "<<rd
 		<<"\nYou made "<< r <<" guesses\n";
 	return 0;
 }
