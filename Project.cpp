@@ -1,7 +1,6 @@
 #include<iostream>
 #include<string>
 using namespace std;
-void Register();
 void Add_book();
 void borrow();
 void Return_book();
@@ -21,7 +20,50 @@ int main()
 				<<"Enter Menu : ";
 		cin >>choose;
 		if (choose == '1')
-			Register();
+		{
+			int i=1,r = 1 ; //i for end loop
+			char chose;
+			string *student_first = new string[r];
+			string *student_last = new string[r];
+			string *branch = new string[r];
+			string *faculty = new string[r];
+			string *Student_ID = new string[r];
+			cout<<"--------------Register--------------\n";
+			do
+			{
+				cout<<"Input you first name : ";
+				cin >>student_first[r-1];
+				cout<<"Input you last name : ";
+				cin >>student_last[r-1];
+				cout<<"Input you Student ID : ";
+				cin >>Student_ID[r-1];
+				cout<<"Input you faculty : ";
+				cin >>faculty[r-1];
+				cout<<"Input you branch : ";
+				cin >>branch[r-1];
+
+				cout<<"Please check for accuracy.\n"
+					<<"Name : "<<student_first[r-1]<<" "<<student_last[i-1]<<endl
+					<<"Student ID : "<<Student_ID[r-1]<<endl
+					<<"Faculty : "<<faculty[r-1]<<endl
+					<<"Branch : "<<branch[r-1]<<endl
+					<<"Press Y(YES) or N(NO) or Press anykey for cancel: ";
+				cin >>chose;
+				if (chose == 'Y' || chose == 'y')
+				{
+					cout<<"\nRegister complate\n";
+					i=0;
+					r++;
+				}
+				else if (chose == 'N' || chose == 'n')
+					i=1;
+				else
+				{
+					cout<<"\ncancel.\n";
+					break;
+				}
+			}while(i == 1);
+		}
 		else if (choose == '2')
 			Add_book();
 		else if (choose == '3')
@@ -34,10 +76,7 @@ int main()
 	return 0;
 }
 
-void Register()
-{
 
-}
 
 void Add_book()
 {
