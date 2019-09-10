@@ -1,7 +1,7 @@
 #include<iostream>
 #include<string>
 using namespace std;
-void ListStudent(string name[],int score[],int);
+void ListStudent(string name[],int score[],int num);
 char Calgrade(int score);
 int main()
 {
