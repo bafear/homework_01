@@ -1,15 +1,19 @@
 #include<iostream>
 #include<string>
 using namespace std;
+int login();
 void Add_book();
 void borrow();
 void Return_book();
 void Report();
 int main()
 {
+	int r=1;
 	char choose;
+	string student_first[20], student_last[20], branch[20], faculty[20], Student_ID[20];
 	do
 	{
+
 		cout<<"////////////////Menu////////////////\n"
 				<<" 1. Register\n"
 				<<" 2. Add book infor\n"
@@ -21,13 +25,8 @@ int main()
 		cin >>choose;
 		if (choose == '1')
 		{
-			int i=1,r = 1 ; //i for end loop
 			char chose;
-			string *student_first = new string[r];
-			string *student_last = new string[r];
-			string *branch = new string[r];
-			string *faculty = new string[r];
-			string *Student_ID = new string[r];
+			int i=1;
 			cout<<"--------------Register--------------\n";
 			do
 			{
@@ -71,12 +70,28 @@ int main()
 		else if (choose == '4')
 			Return_book();
 		else if (choose == '5')
-			Report();
+		{
+			string log;
+			cout<<"Plest input your student ID: ";
+			cin >>log;
+			int i = login(r-1,Student_ID,log);
+		}
 	}while(choose == '1' || choose == '2'|| choose == '3' || choose == '4' || choose == '5');
 	return 0;
 }
 
-
+int login(int r,string Student_ID[],string login)
+{
+	int i;
+	for(i=0;i<r;i++)
+	{
+		if(login == Student_ID[i])
+		{
+			break;
+		}
+	}
+	return i;
+}
 
 void Add_book()
 {
