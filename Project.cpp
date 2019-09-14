@@ -1,7 +1,7 @@
 #include<iostream>
 #include<string>
 using namespace std;
-int login();
+int login(int r,string Student_ID[],string login);
 void Add_book();
 void borrow();
 void Return_book();
@@ -9,11 +9,11 @@ void Report();
 int main()
 {
 	int r=1;
+	string log;
 	char choose;
 	string student_first[20], student_last[20], branch[20], faculty[20], Student_ID[20];
 	do
 	{
-
 		cout<<"////////////////Menu////////////////\n"
 				<<" 1. Register\n"
 				<<" 2. Add book infor\n"
@@ -42,7 +42,7 @@ int main()
 				cin >>branch[r-1];
 
 				cout<<"Please check for accuracy.\n"
-					<<"Name : "<<student_first[r-1]<<" "<<student_last[i-1]<<endl
+					<<"Name : "<<student_first[r-1]<<" "<<student_last[r-1]<<endl
 					<<"Student ID : "<<Student_ID[r-1]<<endl
 					<<"Faculty : "<<faculty[r-1]<<endl
 					<<"Branch : "<<branch[r-1]<<endl
@@ -64,17 +64,31 @@ int main()
 			}while(i == 1);
 		}
 		else if (choose == '2')
-			Add_book();
-		else if (choose == '3')
-			borrow();
-		else if (choose == '4')
-			Return_book();
-		else if (choose == '5')
 		{
-			string log;
+			
+		}
+		else if (choose == '3')
+		{
 			cout<<"Plest input your student ID: ";
 			cin >>log;
 			int i = login(r-1,Student_ID,log);
+			cout<<"Hello "<<student_first[i]<<" "<<student_last[i]<<"\n\n";
+			borrow();
+		}
+		else if (choose == '4')
+		{
+			cout<<"Plest input your student ID: ";
+			cin >>log;
+			int i = login(r-1,Student_ID,log);
+			cout<<"Hello "<<student_first[i]<<" "<<student_last[i]<<"\n\n";
+			Return_book();
+		}
+		else if (choose == '5')
+		{
+			cout<<"Plest input your student ID: ";
+			cin >>log;
+			int i = login(r-1,Student_ID,log);
+			cout<<"Hello "<<student_first[i]<<" "<<student_last[i]<<"\n\n";
 		}
 	}while(choose == '1' || choose == '2'|| choose == '3' || choose == '4' || choose == '5');
 	return 0;
