@@ -305,7 +305,7 @@ int main()
 					}
 					else cout<<"\nNo. 3 Not borrowing books";
 				}
-				t=0;
+				t=1;
 			}
 			}while(t == 1);
 		}
