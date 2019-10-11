@@ -245,9 +245,9 @@ int main()
 			cout<<"-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-\n"
 				<<" No.            Name Book\n"
 				<<"-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-\n";
-			cout<<setw(4)<<"1"<<setw(25)<<Name_book[check_book(numbook,ID_book_borrow1[Student],ID_book)]<<endl;
-			cout<<setw(4)<<"2"<<setw(25)<<Name_book[check_book(numbook,ID_book_borrow2[Student],ID_book)]<<endl;
-			cout<<setw(4)<<"3"<<setw(25)<<Name_book[check_book(numbook,ID_book_borrow3[Student],ID_book)]<<endl<<endl;
+			cout<<setw(3)<<"1"<<setw(25)<<Name_book[check_book(numbook,ID_book_borrow1[Student],ID_book)]<<endl;
+			cout<<setw(3)<<"2"<<setw(25)<<Name_book[check_book(numbook,ID_book_borrow2[Student],ID_book)]<<endl;
+			cout<<setw(3)<<"3"<<setw(25)<<Name_book[check_book(numbook,ID_book_borrow3[Student],ID_book)]<<endl<<endl;
 			cout<<"1. Return all books ("<< borrow_num[Student] <<" books)?\n";
 			cout<<"2. Return 1 books\n";
 			cout<<"Q. Exit\n";
@@ -258,17 +258,14 @@ int main()
 					if (ID_book_borrow1[Student] != "empty")
 					{
 						return_book(numbook, ID_book, ID_book_borrow1[Student], stock_book,borrow_num[Student]);
-						ID_book_borrow1[Student] = "empty";
 					}
 					if (ID_book_borrow2[Student] != "empty")
 					{
 						return_book(numbook, ID_book, ID_book_borrow2[Student], stock_book,borrow_num[Student]);
-						ID_book_borrow2[Student] = "empty";
 					}
 					if (ID_book_borrow3[Student] != "empty")
 					{
 						return_book(numbook, ID_book, ID_book_borrow3[Student], stock_book,borrow_num[Student]);
-						ID_book_borrow3[Student] = "empty";
 					}
 					cout<<"\nYou return all book.";
 					t = 0;
@@ -290,20 +287,20 @@ int main()
 				}
 				else if (check == '2')
 				{
-					if (ID_book_borrow1[Student] != "empty")
+					if (ID_book_borrow2[Student] != "empty")
 					{
-						return_book(numbook, ID_book, ID_book_borrow1[Student], stock_book,borrow_num[Student]);
-						ID_book_borrow1[Student] = "empty";
+						return_book(numbook, ID_book, ID_book_borrow2[Student], stock_book,borrow_num[Student]);
+						ID_book_borrow2[Student] = "empty";
 						cout<<"Successfully returned\n";
 					}
 					else cout<<"\nNo. 2 Not borrowing books";
 				}
 				else if (check == '3')
 				{
-					if (ID_book_borrow1[Student] != "empty")
+					if (ID_book_borrow3[Student] != "empty")
 					{
-						return_book(numbook, ID_book, ID_book_borrow1[Student], stock_book,borrow_num[Student]);
-						ID_book_borrow1[Student] = "empty";
+						return_book(numbook, ID_book, ID_book_borrow3[Student], stock_book,borrow_num[Student]);
+						ID_book_borrow3[Student] = "empty";
 						cout<<"Successfully returned\n";
 					}
 					else cout<<"\nNo. 3 Not borrowing books";
@@ -357,12 +354,13 @@ int check_book(int numbook,string check_ID,string ID_book[])
 	return i;
 }
 
-void return_book(int numbook ,string ID_book[] ,string borrow, int stock_book[],int &borrow_num)
+void return_book(int numbook ,string ID_book[] ,string &borrow, int stock_book[],int &borrow_num)
 {
 	for(int q=0 ;q<numbook;q++)
 		{
 			if(ID_book[q]==borrow)
 			{
+				borrow = "empty";
 				stock_book[q]++;
 				borrow_num--;
 				break;
