@@ -11,12 +11,11 @@ Time = 0
 Time_apple = 0
 p.pos = (350,450)
 apples = []
-Game_start = False
-Game_end = False
+Game_status = 1
 
 def time_count():
-    global Time ,Game_end
-    if Game_end == False:
+    global Time ,Game_status
+    if Game_status == 1:
         Time += 1
 
 def time_out():
@@ -42,13 +41,15 @@ def radd():
     return x
     
 def draw():
-    global Game_end
+    global Game_status
     screen.fill('blue')
-    p.draw()
-    for apple in apples:
-        apple.draw()
+    if Game_status == 1:
+        p.draw()
+        for apple in apples:
+            apple.draw()
     screen.draw.text('Time : '+str(Time),color='black',topleft=(10,10))
-    if Game_end:
+    screen.draw.text('Score : '+str(Score),color='black',topleft=(610,10))
+    if Game_status == 2:
         #screen.fill('pink')
         msg = "Time out, final score : "+str(Score)
         screen.draw.text(msg,topleft=(150,250),fontsize=50)
@@ -59,8 +60,8 @@ def place_apple():
     Score += 1
     
 def update():
-    global yp ,Game_end
-    if Game_end == False:
+    global yp ,Game_status
+    if Game_status == 1:
         if yp == -50:
             yp = 650
         if yp == 750:
@@ -76,13 +77,14 @@ def update():
                 apples.remove(apple)
 
 def on_key_down(key):
-    global yp
-    if key == keys.LEFT:
-         yp = yp-100
-    if key == keys.RIGHT:
-         yp = yp+100
+    global yp ,Game_status
+    if Game_status == 1:
+        if key == keys.LEFT:
+             yp = yp-100
+        if key == keys.RIGHT:
+             yp = yp+100
 
-def time_count_apple():
+def time_count_apple1():
     global Time_apple
     Time_apple += 1
     apples.append(Actor('apple'))
@@ -90,6 +92,6 @@ def time_count_apple():
     apples[last-1].pos = (radd(),-20)
 
 clock.schedule_interval(time_count,1.0)
-clock.schedule_interval(time_count_apple,0.7)
+clock.schedule_interval(time_count_apple1,0.5)
 
 pgzrun.go()
