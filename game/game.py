@@ -5,12 +5,16 @@ WIDTH = 700
 HEIGHT = 500
 p = Actor('fox')
 apple = Actor('apple')
+bomb = Actor('bomb')
 yp = 350
 Score = 0
 Time = 0
+Max_time = 60
 Time_apple = 0
 p.pos = (350,450)
 apples = []
+bombs = []
+num_bombs = 0
 Game_status = 1
 
 def time_count():
@@ -47,6 +51,8 @@ def draw():
         p.draw()
         for apple in apples:
             apple.draw()
+        for bomb in bombs:
+            bomb.draw()
     screen.draw.text('Time : '+str(Time),color='black',topleft=(10,10))
     screen.draw.text('Score : '+str(Score),color='black',topleft=(610,10))
     if Game_status == 2:
@@ -75,6 +81,8 @@ def update():
                 apples.remove(apple)
             if apple.y > HEIGHT:
                 apples.remove(apple)
+        for bomb in bombs:
+            bomb.y += 14
 
 def on_key_down(key):
     global yp ,Game_status
@@ -88,10 +96,28 @@ def time_count_apple1():
     global Time_apple
     Time_apple += 1
     apples.append(Actor('apple'))
-    last = len(apples)
-    apples[last-1].pos = (radd(),-20)
+    last_apple = len(apples)
+    apples[last_apple-1].pos = (radd(),-20)
 
+def time_count_bomb():
+    global num_bombs
+    num_bombs += 1
+    bombs.append(Actor('bomb'))
+    last_bomb = len(bombs)
+    bombs[last_bomb-1].pos = (radd(),-20)
+    if num_bombs % 2 == 1:
+        time_count_bomb()
+
+def pos_bomb():
+    global num_bombs , yp
+    num_bombs += 1
+    bombs.append(Actor('bomb'))
+    last_bomb = len(bombs)
+    bombs[last_bomb-1].pos = (yp,-20)
+    
 clock.schedule_interval(time_count,1.0)
-clock.schedule_interval(time_count_apple1,0.5)
+clock.schedule_interval(time_count_apple1,0.4)
+clock.schedule_interval(time_count_bomb,6)
+clock.schedule_interval(pos_bomb,4)
 
 pgzrun.go()
