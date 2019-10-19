@@ -2,36 +2,18 @@
 #include<string>
 #include<iomanip>
 using namespace std;
-int login(int r,string Student_ID[]);
+int login(int r,string Student_ID[],string student_first[]);
 int check_book(int numbook,string check_ID,string ID_book[]);
-void return_book(int numbook ,string ID_book[] ,string borrow,int stock_book[],int &borrow_num);
-void memu_main()
-{
-cout<<"////////////////Menu////////////////\n"
-	<<" 1. Register\n"
-	<<" 2. Add book infor\n"
-	<<" 3. Borrow a book\n"
-	<<" 4. Return the book\n"
-	<<" 5. Report\n"
-	<<"____________________________\n"
-	<<"Enter Menu : ";
-}
+void return_book(int numbook ,string ID_book[] ,string &borrow,int stock_book[],int &borrow_num,int &now_book);
 
-void menu_addbook()
-{
-cout<<"Do you want to add new books or increase the number of existing books?\n"
-	<<"1 Add new books.\n"
-	<<"2 Increase the number of books.\n"
-	<<"Press 1 or 2 or Press anykey for cancel: ";
-}
 int main()
 {
-	int std=1,numbook = 2,stock_book[20],borrow_num[20];
+	int std=1,numbook = 2,stock_book[20],borrow_num[20] , all_book = 6 , now_book = 6; 
 	char chose, check;
 	string student_first[20], student_last[20], branch[20], faculty[20], Student_ID[20];
 	string ID_book[20],Name_book[20],ID_book_borrow1[20],ID_book_borrow2[20],ID_book_borrow3[20];
 	//////student 1
-	student_first[0] = "Supavarit",student_last[0]="Lexnopparat",branch[0]="IT",faculty[0]="IT",Student_ID[0]="6206021612113",
+	student_first[0] = "Supavarit",student_last[0]="Lexnopparat",branch[0]="FITM",faculty[0]="IT",Student_ID[0]="6206021612113",
 		borrow_num[0]=0,ID_book_borrow1[0]="empty",ID_book_borrow2[0]="empty",ID_book_borrow3[0]="empty";
 	//////Book
 	Name_book[0]="Herry_potter_1",ID_book[0]="0001", stock_book[0]=5,
@@ -39,7 +21,14 @@ int main()
 	do
 	{
 		string log;
-		memu_main();
+		cout<<"////////////////Menu////////////////\n"
+		<<" 1. Register\n"
+		<<" 2. Add book infor\n"
+		<<" 3. Borrow a book\n"
+		<<" 4. Return the book\n"
+		<<" 5. Report\n"
+		<<"____________________________\n"
+		<<"Enter Menu : ";
 		cin >>chose;
 		if (chose == '1')
 		{
@@ -95,7 +84,10 @@ int main()
 		{
 			int t=1;
 			char choose;
-			menu_addbook();
+			cout<<"Do you want to add new books or increase the number of existing books?\n"
+				<<"1 Add new books.\n"
+				<<"2 Increase the number of books.\n"
+				<<"Press 1 or 2 or Press anykey for cancel: ";
 			cin >>choose;
 			if (choose == '1')
 			{
@@ -120,6 +112,8 @@ int main()
 						stock_book[numbook]=stock;
 						ID_book[numbook]=IDBook;
 						cout<<"Add new book Complate.\n";
+						all_book += stock;
+						now_book += stock;
 						numbook++;
 						t = 0;
 					}
@@ -158,6 +152,8 @@ int main()
 						cin >>add;
 						cout<<"Add Book Compleat\n";
 						stock_book[i] += add;
+						all_book += add;
+						now_book += add;
 						t=0;
 					}
 					else if(check == 'N' || check == 'n')
@@ -174,7 +170,7 @@ int main()
 /////////////////////////////////////////////
 		else if (chose == '3')
 		{
-			int Student = login(std,Student_ID);
+			int Student = login(std,Student_ID,student_first);
 			
 			int t=1;
 			do
@@ -201,6 +197,7 @@ int main()
 				if (check == 'Y' || check == 'y')
 				{
 					stock_book[i]--;
+					now_book--;
 					borrow_num[Student]++;
 					if (ID_book_borrow1[Student]=="empty") ID_book_borrow1[Student] = ID_book[i];
 					else if (ID_book_borrow2[Student]=="empty") ID_book_borrow2[Student] = ID_book[i];
@@ -231,7 +228,7 @@ int main()
 /////////////////////////////////////////////
 		else if (chose == '4')
 		{
-			int Student = login(std,Student_ID);
+			int Student = login(std,Student_ID,student_first);
 			int t = 1;
 			do
 			{
@@ -257,17 +254,17 @@ int main()
 				{
 					if (ID_book_borrow1[Student] != "empty")
 					{
-						return_book(numbook, ID_book, ID_book_borrow1[Student], stock_book,borrow_num[Student]);
+						return_book(numbook, ID_book, ID_book_borrow1[Student], stock_book,borrow_num[Student],now_book);
 					}
 					if (ID_book_borrow2[Student] != "empty")
 					{
-						return_book(numbook, ID_book, ID_book_borrow2[Student], stock_book,borrow_num[Student]);
+						return_book(numbook, ID_book, ID_book_borrow2[Student], stock_book,borrow_num[Student],now_book);
 					}
 					if (ID_book_borrow3[Student] != "empty")
 					{
-						return_book(numbook, ID_book, ID_book_borrow3[Student], stock_book,borrow_num[Student]);
+						return_book(numbook, ID_book, ID_book_borrow3[Student], stock_book,borrow_num[Student],now_book);
 					}
-					cout<<"\nYou return all book.";
+					cout<<"\nSuccessfully return all book.\n";
 					t = 0;
 				}
 			else if(check == '2')
@@ -279,8 +276,7 @@ int main()
 				{
 					if (ID_book_borrow1[Student] != "empty")
 					{
-						return_book(numbook, ID_book, ID_book_borrow1[Student], stock_book,borrow_num[Student]);
-						ID_book_borrow1[Student] = "empty";
+						return_book(numbook, ID_book, ID_book_borrow1[Student], stock_book,borrow_num[Student],now_book);
 						cout<<"Successfully returned\n";
 					}
 					else cout<<"\nNo. 1 Not borrowing books";
@@ -289,8 +285,7 @@ int main()
 				{
 					if (ID_book_borrow2[Student] != "empty")
 					{
-						return_book(numbook, ID_book, ID_book_borrow2[Student], stock_book,borrow_num[Student]);
-						ID_book_borrow2[Student] = "empty";
+						return_book(numbook, ID_book, ID_book_borrow2[Student], stock_book,borrow_num[Student],now_book);
 						cout<<"Successfully returned\n";
 					}
 					else cout<<"\nNo. 2 Not borrowing books";
@@ -299,8 +294,7 @@ int main()
 				{
 					if (ID_book_borrow3[Student] != "empty")
 					{
-						return_book(numbook, ID_book, ID_book_borrow3[Student], stock_book,borrow_num[Student]);
-						ID_book_borrow3[Student] = "empty";
+						return_book(numbook, ID_book, ID_book_borrow3[Student], stock_book,borrow_num[Student],now_book);
 						cout<<"Successfully returned\n";
 					}
 					else cout<<"\nNo. 3 Not borrowing books";
@@ -312,18 +306,26 @@ int main()
 /////////////////////////////////////////////
 		else if (chose == '5')
 		{
-			int Student = login(std,Student_ID);
-			int t = 1;
-			do
+			int i;
+			cout<<"-x-x-x-x-x-x-x-x-x-x-x-report-x-x-x-x-x-x-x-x-x-x-\n"
+				<<"Currently, there are "<<all_book-now_book<<" books borrowed.\n"
+				<<"Currently, there are "<<now_book<<" books remaining in the library.\n"
+				<<"-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-\n";
+			for(i=0;i<std;i++)
 			{
-			if (Student == -1) break;
-			}while(t == 1);
+				if(borrow_num[i] != 0)
+				{
+					cout<<"Name: "<<student_first[i]<<" ID: "<<Student_ID[i]<<endl
+						<<borrow_num[i]<<" books not yet returned\n"
+						<<"-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-\n";
+				}
+			}
 		}
 	}while(chose == '1' || chose == '2'|| chose == '3' || chose == '4' || chose == '5');
 	return 0;
 }
 
-int login(int r,string Student_ID[])
+int login(int r,string Student_ID[],string student_first[])
 {
 	string login;
 	cout<<"Plest input your student ID: ";
@@ -333,7 +335,7 @@ int login(int r,string Student_ID[])
 	{
 		if(login == Student_ID[i])
 		{
-			cout<<"hi\n";
+			cout<<"Hi "<<student_first[i]<<endl;
 			return i;
 		}
 	}
@@ -354,7 +356,7 @@ int check_book(int numbook,string check_ID,string ID_book[])
 	return i;
 }
 
-void return_book(int numbook ,string ID_book[] ,string &borrow, int stock_book[],int &borrow_num)
+void return_book(int numbook ,string ID_book[] ,string &borrow, int stock_book[],int &borrow_num,int &now_book)
 {
 	for(int q=0 ;q<numbook;q++)
 		{
@@ -362,6 +364,7 @@ void return_book(int numbook ,string ID_book[] ,string &borrow, int stock_book[]
 			{
 				borrow = "empty";
 				stock_book[q]++;
+				now_book++;
 				borrow_num--;
 				break;
 			}
