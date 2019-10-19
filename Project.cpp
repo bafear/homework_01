@@ -21,14 +21,15 @@ int main()
 	do
 	{
 		string log;
-		cout<<"////////////////Menu////////////////\n"
-		<<" 1. Register\n"
-		<<" 2. Add book infor\n"
-		<<" 3. Borrow a book\n"
-		<<" 4. Return the book\n"
-		<<" 5. Report\n"
-		<<"____________________________\n"
-		<<"Enter Menu : ";
+		cout<<"////////////////Menu////////////////\n";
+		cout<<" 1. Register\n";
+		cout<<" 2. Add book infor\n";
+		cout<<" 3. Borrow a book\n";
+		cout<<" 4. Return the book\n";
+		cout<<" 5. Report\n";
+		cout<<" Q. Exit\n";
+		cout<<"____________________________\n";
+		cout<<"Enter Menu : ";
 		cin >>chose;
 		if (chose == '1')
 		{
@@ -69,6 +70,8 @@ int main()
 					cout<<"\nRegister complate\n";
 					t=0;
 					std++;
+					system("pause");
+					system("cls");
 				}
 				else if (check == 'N' || check == 'n')
 					t=1;
@@ -76,6 +79,8 @@ int main()
 				{
 					cout<<"\ncancel.\n";
 					break;
+					system("pause");
+					system("cls");
 				}
 			}while(t == 1);
 		}
@@ -84,10 +89,10 @@ int main()
 		{
 			int t=1;
 			char choose;
-			cout<<"Do you want to add new books or increase the number of existing books?\n"
-				<<"1 Add new books.\n"
-				<<"2 Increase the number of books.\n"
-				<<"Press 1 or 2 or Press anykey for cancel: ";
+			cout<<"Do you want to add new books or increase the number of existing books?\n";
+			cout<<"1 Add new books.\n";
+			cout<<"2 Increase the number of books.\n";
+			cout<<"Press 1 or 2 or Press anykey for cancel: ";
 			cin >>choose;
 			if (choose == '1')
 			{
@@ -95,16 +100,16 @@ int main()
 				{
 					string name="",IDBook="";
 					int stock = 0;
-					cout<<"\nAdd new books\n"
-						<<"~~~~~~~~~~~~~~~~~~~~\n"
-						<<"Enter the book name : ";
+					cout<<"\nAdd new books\n";
+					cout<<"~~~~~~~~~~~~~~~~~~~~\n";
+					cout<<"Enter the book name : ";
 					cin >>name;
 					cout<<"Enter the number of books : ";
 					cin >>stock;
 					cout<<"Create book ID : ";
 					cin >>IDBook;
-					cout<<"Please check for accuracy.\n"
-						<<"Press Y(YES) or N(NO) or Press anykey for cancel: ";
+					cout<<"Please check for accuracy.\n";
+					cout<<"Press Y(YES) or N(NO) or Press anykey for cancel: ";
 					cin >>check;
 					if (check == 'Y' || check == 'y')
 					{
@@ -116,12 +121,16 @@ int main()
 						now_book += stock;
 						numbook++;
 						t = 0;
+						system("pause");
+						system("cls");
 					}
 					else if (check == 'N' || check == 'n')
 						t = 1;
 					else
 					{
 						cout<<"\ncancel.\n";
+						system("pause");
+						system("cls");
 						break;
 					}
 				}while(t == 1);
@@ -155,13 +164,19 @@ int main()
 						all_book += add;
 						now_book += add;
 						t=0;
+						system("pause");
+						system("cls");
 					}
 					else if(check == 'N' || check == 'n')
 					{
 						t=1;
 					}
 					else
-					break;
+					{
+						system("pause");
+						system("cls");
+						break;
+					}
 				}while(t == 1);
 			}
 			else
@@ -214,6 +229,8 @@ int main()
 						{
 							cout<<endl;
 							t = 1;
+							system("pause");
+							system("cls");
 						}
 					else t=0;
 				}
@@ -221,6 +238,8 @@ int main()
 				else
 				{
 					cout<<"\ncancel.\n";
+					system("pause");
+					system("cls");
 					break;
 				}
 			}while(t == 1);
@@ -321,7 +340,8 @@ int main()
 				}
 			}
 		}
-	}while(chose == '1' || chose == '2'|| chose == '3' || chose == '4' || chose == '5');
+	}while(chose != 'Q' && chose != 'q');
+	cout<<"\n\nExit\n";
 	return 0;
 }
 
